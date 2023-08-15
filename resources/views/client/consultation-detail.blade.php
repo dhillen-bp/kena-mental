@@ -8,11 +8,17 @@
                 <small class="text-sm">{{ $consultation->booking_date }}</small>
             </div>
             <div class="card-body text-purple">
+                <div class="justify-content-between d-flex">
+                    <p class="text-secondary">Psychologist: {{ $consultation->psychologists->name }}</p>
+                    <p class="">To: {{ $consultation->users->name }}</p>
+                </div>
+                <h6 class="text-center">Notes</h6>
+                <hr>
                 <p class="card-text">{{ $consultation->notes }}</p>
             </div>
             <div class="card-footer border-purple d-flex justify-content-between bg-transparent">
                 <a href="/consultation" class="btn btn-secondary">Back</a>
-                <a href="/export-pdf/" class="btn btn-purple">Export to PDF</a>
+                <a href="/export-pdf/{{ $consultation->id }}" class="btn btn-purple">Export to PDF</a>
             </div>
         </div>
     </div>

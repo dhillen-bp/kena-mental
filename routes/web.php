@@ -29,6 +29,7 @@ Route::post('/choose-package', [PsychologistController::class, 'choosePsychologi
 
 Route::get('/consultation', [ConsultationController::class, 'index'])->middleware('auth');
 Route::get('/consultation-detail/{id}', [ConsultationController::class, 'consultDetail'])->middleware('auth');
+Route::get('/export-pdf/{id}', [ConsultationController::class, 'exportPDF'])->middleware('auth');
 
 Route::get('/login', [AuthController::class, 'show'])->name('login');
 Route::get('/profile', [AuthController::class, 'profile'])->middleware('auth');

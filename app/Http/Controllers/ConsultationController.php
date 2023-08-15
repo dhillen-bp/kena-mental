@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use App\Models\Consultation;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -22,13 +23,22 @@ class ConsultationController extends Controller
         return view('client.consultation',  ['consultation' => $consultation]);
     }
 
-    public function consultDetail()
+    public function consultDetail($id)
     {
-        $userId = Auth::user()->id;
-        $consultation = Consultation::with(['users', 'psychologists'])->where('user_id', $userId)->firstOrFail();
+        $consultation = Consultation::with(['users', 'psychologists'])->where('id', $id)->firstOrFail();
         return view('client.consultation-detail',  ['consultation' => $consultation]);
     }
 
+    public function exportPDF($id)
+    {
+        $consultation = Consultation::with(['users', 'psychologists'])->where('id', $id)->firstOrFail();
+        $consultationArray = $consultation->toArray();
+
+        $pdf = PDF::loadView('components.export-pdf', ['consultationArray' => $consultationArray]);
+        return $pdf->download('consultation-detail.pdf');
+    }
+
+    // not fix
     public function showPackage()
     {
         return view('client.choose-package');
