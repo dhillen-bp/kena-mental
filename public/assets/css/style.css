@@ -1,0 +1,14 @@
+.bg-purple {
+    background-color: #A46FDA;
+    color: white;
+}
+
+.btn-purple {
+    background-color: #A46FDA;
+    color: white;
+}
+
+.btn-purple:hover {
+    background-color: #9854dd;
+    color: white;
+}
