@@ -22,15 +22,16 @@ use App\Http\Controllers\PsychologistController;
 
 // Client
 Route::get('/', [ClientController::class, 'index']);
-Route::get('/consultation', [ConsultationController::class, 'index'])->middleware('auth');
 Route::get('/psychologists', [PsychologistController::class, 'index'])->middleware('auth');
 Route::get('/psychologist/{id}', [PsychologistController::class, 'show'])->middleware('auth');
 Route::post('/psychologist/{id}', [PsychologistController::class, 'choosePsychologist'])->middleware('auth');
 Route::post('/choose-package', [PsychologistController::class, 'choosePsychologist'])->middleware('auth');
 
+Route::get('/consultation', [ConsultationController::class, 'index'])->middleware('auth');
+Route::get('/consultation-detail/{id}', [ConsultationController::class, 'consultDetail'])->middleware('auth');
 
 Route::get('/login', [AuthController::class, 'show'])->name('login');
-
+Route::get('/profile', [AuthController::class, 'profile'])->middleware('auth');
 Route::get('/logout', function () {
     Auth::logout();
     return redirect('login');

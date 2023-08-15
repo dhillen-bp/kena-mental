@@ -37,8 +37,13 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('/dashboard');
+        return redirect('/');
 
         // $user->token
+    }
+
+    public function profile()
+    {
+        return view('client.profile');
     }
 }

@@ -3,6 +3,10 @@
     color: white;
 }
 
+.border-purple{
+    border-color: #A46FDA;
+}
+
 .btn-purple {
     background-color: #A46FDA;
     color: white;

@@ -24,12 +24,12 @@ class Consultation extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function users(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function psychologist(): BelongsTo
+    public function psychologists(): BelongsTo
     {
         return $this->belongsTo(Psychologist::class, 'psychologist_id', 'id');
     }

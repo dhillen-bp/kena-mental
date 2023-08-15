@@ -2,15 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Psychologist;
+use Illuminate\Support\Str;
+use App\Models\Consultation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class ConsultationController extends Controller
 {
     public function index()
     {
-        return view('client.consultation');
+        $userId = Auth::user()->id;
+        $consultation = Consultation::where('user_id', $userId)->get();
+
+        foreach ($consultation as $consult) {
+            $consult->notes = Str::limit($consult->notes, $limit = 50, $end = '...');
+        }
+
+        return view('client.consultation',  ['consultation' => $consultation]);
+    }
+
+    public function consultDetail()
+    {
+        $userId = Auth::user()->id;
+        $consultation = Consultation::with(['users', 'psychologists'])->where('user_id', $userId)->firstOrFail();
+        return view('client.consultation-detail',  ['consultation' => $consultation]);
+    }
+
+    public function showPackage()
+    {
+        return view('client.choose-package');
     }
 
     public function choosePackage(Request $request)
