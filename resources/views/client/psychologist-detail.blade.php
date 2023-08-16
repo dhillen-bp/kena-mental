@@ -1,4 +1,5 @@
 @extends('layouts.client')
+@section('title', 'Psychologist Detail')
 
 @section('client_content')
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
@@ -29,7 +30,7 @@
             </div>
             <div class="card-footer d-flex justify-content-between">
                 <a href="/psychologists" class="btn btn-secondary">Back</a>
-                <a href="/psychologist/" class="btn btn-purple">Consult Now</a>
+                <a href="/form-consultation/{{ $psychologist->id }}" class="btn btn-purple">Consult Now</a>
             </div>
         </div>
     </div>

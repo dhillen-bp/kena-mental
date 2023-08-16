@@ -11,23 +11,28 @@
             <div class="navbar-collapse collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" aria-current="page"
+                            href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/consultation">Consultation</a>
+                        <a class="nav-link {{ Request::is('consultations') ? 'active' : '' }}"
+                            href="/consultations">Consultation</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/mental-test">Mental Test</a>
+                        <a class="nav-link {{ Request::is('mental-test') ? 'active' : '' }}" href="/mental-test">Mental
+                            Test</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/psychologists">Psychologists</a>
+                        <a class="nav-link {{ Request::is('psychologists') ? 'active' : '' }}"
+                            href="/psychologists">Psychologists</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/testimonials">Testimonials</a>
+                        <a class="nav-link {{ Request::is('testimonials') ? 'active' : '' }}"
+                            href="/testimonials">Testimonials</a>
                     </li>
                     @auth()
                         <li class="nav-item">
-                            <a class="nav-link" href="/profile">Profile</a>
+                            <a class="nav-link {{ Request::is('profile') ? 'active' : '' }}" href="/profile">Profile</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/logout">Logout</a>

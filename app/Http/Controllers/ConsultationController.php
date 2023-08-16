@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Str;
 use App\Models\Consultation;
+use App\Models\Psychologist;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
@@ -38,20 +40,27 @@ class ConsultationController extends Controller
         return $pdf->download('consultation-detail.pdf');
     }
 
-    // not fix
-    public function showPackage()
+    public function create($psychologist_id)
     {
-        return view('client.choose-package');
+        $user_id = Auth::user()->id;
+        $user = User::select('id', 'name')->where('id', $user_id)->firstOrFail();
+        $psychologist = Psychologist::select('id', 'name')->where('id', $psychologist_id)->firstOrFail();
+        return view('client.form-consultation',  ['user' => $user, 'psychologist' => $psychologist]);
     }
 
-    public function choosePackage(Request $request)
+    public function store(Request $request)
     {
-        $packagePrice = $request->input('package_price');
-        $sessionType = $request->input('session_type');
+        $validatedData = $request->validate([
+            'user_id' => 'required',
+            'psychologist_id' => 'required',
+            'booking_date' => 'required|date',
+        ]);
 
-        Session::put('selected_package_price', $packagePrice);
-        Session::put('selected_session_type', $sessionType);
+        $consultation = new Consultation();
+        // $consultation->user_id = $validatedData['user_id'];
+        // $consultation->psychologist_id = $validatedData['psychologist_id'];
+        // $consultation->booking_date = $validatedData['booking_date'];
 
-        return redirect()->route('confirm-booking');
+        $consultation = Consultation::create($request->all());
     }
 }

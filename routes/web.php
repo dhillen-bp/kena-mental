@@ -25,10 +25,11 @@ Route::get('/', [ClientController::class, 'index']);
 Route::get('/psychologists', [PsychologistController::class, 'index'])->middleware('auth');
 Route::get('/psychologist/{id}', [PsychologistController::class, 'show'])->middleware('auth');
 Route::post('/psychologist/{id}', [PsychologistController::class, 'choosePsychologist'])->middleware('auth');
-Route::post('/choose-package', [PsychologistController::class, 'choosePsychologist'])->middleware('auth');
 
-Route::get('/consultation', [ConsultationController::class, 'index'])->middleware('auth');
+Route::get('/consultations', [ConsultationController::class, 'index'])->middleware('auth');
 Route::get('/consultation-detail/{id}', [ConsultationController::class, 'consultDetail'])->middleware('auth');
+Route::get('/form-consultation/{id_psychologist}', [ConsultationController::class, 'create'])->middleware('auth');
+Route::get('/process-consultation', [ConsultationController::class, 'store'])->middleware('auth');
 Route::get('/export-pdf/{id}', [ConsultationController::class, 'exportPDF'])->middleware('auth');
 
 Route::get('/login', [AuthController::class, 'show'])->name('login');

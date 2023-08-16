@@ -1,4 +1,5 @@
 @extends('layouts.client')
+@section('title', 'Profile')
 
 @section('client_content')
     <div class="w-50 mx-auto my-5">

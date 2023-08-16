@@ -1,4 +1,5 @@
 @extends('layouts.client')
+@section('title', 'Consultation Detail')
 
 @section('client_content')
     <div class="col w-75 mx-auto mt-5">

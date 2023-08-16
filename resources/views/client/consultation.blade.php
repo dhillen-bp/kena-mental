@@ -1,4 +1,5 @@
 @extends('layouts.client')
+@section('title', 'Consultation')
 
 @section('client_content')
     <div class="row my-5">
