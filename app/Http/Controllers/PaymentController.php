@@ -61,10 +61,10 @@ class PaymentController extends Controller
                 $payment = PaymentConsultation::where('id', $request->order_id)->firstOrFail();
                 $payment->update(['status' => 'paid']);
 
-                // $psychologistDetail = PsychologistDetail::where('psychologist_id', $payment->psychologist_id)->first();
-                // if ($psychologistDetail) {
-                //     $psychologistDetail->increment('session_count');
-                // }
+                $psychologistDetail = PsychologistDetail::where('psychologist_id', $payment->psychologist_id)->firstOrFail();
+                if ($psychologistDetail) {
+                    $psychologistDetail->increment('session_count');
+                }
             }
         }
     }

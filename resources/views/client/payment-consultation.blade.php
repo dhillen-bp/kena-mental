@@ -43,7 +43,7 @@
 
             <div class="card-footer bg-light border-purple d-flex justify-content-between">
                 <a href="/form-consultation/{{ $psychologist->id }}" class="btn btn-secondary">Back</a>
-                <button type="submit" class="btn btn-purple" id="pay-button">Book Now</button>
+                <button type="submit" class="btn btn-purple" id="pay-button">Continue Pay</button>
             </div>
         </form>
 

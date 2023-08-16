@@ -18,6 +18,9 @@
                     <div class="mb-3">
                         <button type="submit" class="btn btn-primary w-100">Login</button>
                     </div>
+                    <div class="mb-3">
+                        <a href="/register" class="btn btn-info w-100">Register</a>
+                    </div>
                 </form>
                 <a href="/auth/github/redirect" class="btn btn-dark w-100">Login with Github</a>
             </div>

@@ -30,9 +30,8 @@
             </div>
         </div>
 
-        <div class="card-footer bg-light border-purple d-flex justify-content-between">
-            <a href="/payment-consultation/{{ $payment->consultation_id }}" class="btn btn-secondary">Back</a>
-            <button type="submit" class="btn btn-purple" id="pay-button">Pay Now</button>
+        <div class="card-footer bg-light border-purple d-flex justify-content-center">
+            <button type="submit" class="btn btn-purple" id="pay-button">Export PDF</button>
         </div>
 
     </div>
