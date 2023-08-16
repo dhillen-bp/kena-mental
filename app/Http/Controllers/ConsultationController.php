@@ -16,18 +16,30 @@ class ConsultationController extends Controller
     public function index()
     {
         $userId = Auth::user()->id;
-        $consultation = Consultation::where('user_id', $userId)->get();
+        $consultation = Consultation::where('user_id', $userId)
+            ->whereHas('paymentConsultation', function ($query) {
+                $query->where('status', 'paid');
+            })
+            ->get();
 
         foreach ($consultation as $consult) {
             $consult->notes = Str::limit($consult->notes, $limit = 50, $end = '...');
         }
 
-        return view('client.consultation',  ['consultation' => $consultation]);
+        $message = $consultation->isEmpty() ? 'Consultation is Empty!' : '';
+
+        return view('client.consultation',  ['consultation' => $consultation, 'message' => $message]);
     }
 
     public function consultDetail($id)
     {
-        $consultation = Consultation::with(['users', 'psychologists'])->where('id', $id)->firstOrFail();
+        $consultation = Consultation::with(['users', 'psychologists'])
+            ->where('id', $id)
+            ->whereHas('paymentConsultation', function ($query) {
+                $query->where('status', 'paid');
+            })
+            ->firstOrFail();
+
         return view('client.consultation-detail',  ['consultation' => $consultation]);
     }
 
@@ -53,14 +65,19 @@ class ConsultationController extends Controller
         $validatedData = $request->validate([
             'user_id' => 'required',
             'psychologist_id' => 'required',
-            'booking_date' => 'required|date',
+            'booking_date' => 'required',
         ]);
 
-        $consultation = new Consultation();
-        // $consultation->user_id = $validatedData['user_id'];
-        // $consultation->psychologist_id = $validatedData['psychologist_id'];
-        // $consultation->booking_date = $validatedData['booking_date'];
+        $existingConsultation = Consultation::where('psychologist_id', $validatedData['psychologist_id'])
+            ->where('booking_date', $validatedData['booking_date'])
+            ->first();
+
+        if ($existingConsultation) {
+            return back()->with('error', 'A consultation with the same psychologist and booking date already exists.');
+        }
 
         $consultation = Consultation::create($request->all());
+
+        return redirect("/payment-consultation/$consultation->id");
     }
 }

@@ -4,8 +4,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\PsychologistController;
 
@@ -24,13 +26,16 @@ use App\Http\Controllers\PsychologistController;
 Route::get('/', [ClientController::class, 'index']);
 Route::get('/psychologists', [PsychologistController::class, 'index'])->middleware('auth');
 Route::get('/psychologist/{id}', [PsychologistController::class, 'show'])->middleware('auth');
-Route::post('/psychologist/{id}', [PsychologistController::class, 'choosePsychologist'])->middleware('auth');
 
 Route::get('/consultations', [ConsultationController::class, 'index'])->middleware('auth');
 Route::get('/consultation-detail/{id}', [ConsultationController::class, 'consultDetail'])->middleware('auth');
-Route::get('/form-consultation/{id_psychologist}', [ConsultationController::class, 'create'])->middleware('auth');
-Route::get('/process-consultation', [ConsultationController::class, 'store'])->middleware('auth');
 Route::get('/export-pdf/{id}', [ConsultationController::class, 'exportPDF'])->middleware('auth');
+Route::get('/form-consultation/{id_psychologist}', [ConsultationController::class, 'create'])->middleware('auth');
+Route::post('/form-consultation', [ConsultationController::class, 'store'])->middleware('auth');
+
+Route::get('/payment-consultation/{id}', [PaymentController::class, 'create'])->middleware('auth');
+Route::post('/payment-consultation', [PaymentController::class, 'store'])->middleware('auth');
+Route::get('/invoice-consultation/{id}', [PaymentController::class, 'invoice']);
 
 Route::get('/login', [AuthController::class, 'show'])->name('login');
 Route::get('/profile', [AuthController::class, 'profile'])->middleware('auth');
@@ -38,10 +43,16 @@ Route::get('/logout', function () {
     Auth::logout();
     return redirect('login');
 })->middleware('auth');
+Route::post('login', [AuthController::class, 'authenticating']);
+Route::get('register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('register', [AuthController::class, 'registerProcess']);
 
-Route::get('/dashboard', function () {
-    return 'Anda login sebagai ' . auth()->user()->email;
-})->middleware('auth');
-
+// Login with Github
 Route::get('/auth/github/redirect', [AuthController::class, 'redirectToGithubProvider']);
 Route::get('/auth/github/callback', [AuthController::class, 'handleGithubProviderCallback']);
+
+// coba midtrans
+Route::get('/order', [OrderController::class, 'index']);
+Route::post('/checkout', [OrderController::class, 'checkout']);
+// Route::post('/midtrans-callback', [OrderController::class, 'callback']);
+Route::get('/invoice/{id}', [OrderController::class, 'invoice']);

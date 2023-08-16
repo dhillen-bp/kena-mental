@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\PaymentConsultation;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,9 +17,7 @@ class Consultation extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
 
-    protected $fillable = [
-        'text', 'dateTime',
-    ];
+    protected $guarded = [];
 
     /**
      * Get the user that owns the Consultation
@@ -32,5 +32,15 @@ class Consultation extends Model
     public function psychologists(): BelongsTo
     {
         return $this->belongsTo(Psychologist::class, 'psychologist_id', 'id');
+    }
+
+    /**
+     * Get the user associated with the Consultation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function paymentConsultation(): HasOne
+    {
+        return $this->hasOne(PaymentConsultation::class, 'consultation_id', 'id');
     }
 }

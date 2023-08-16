@@ -20,13 +20,4 @@ class PsychologistController extends Controller
         $psychologist = Psychologist::with(['psychologistDetail', 'consultations'])->where('id', $id)->firstOrFail();
         return view('client.psychologist-detail', ['psychologist' => $psychologist]);
     }
-
-    public function choosePsychologist(Request $request, $id)
-    {
-        $psychologist = Psychologist::with(['psychologistDetail'])->where('id', $id)->firstOrFail();
-        session(['selected_psychologist' => $psychologist]);
-
-        // Redirect to choose-package page
-        return redirect()->route('choose-package');
-    }
 }
