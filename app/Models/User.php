@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Testimonial;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -56,5 +57,10 @@ class User extends Authenticatable
     public function consultations(): HasMany
     {
         return $this->hasMany(Consultation::class, 'user_id', 'id');
+    }
+
+    public function testimonials(): HasMany
+    {
+        return $this->hasMany(Testimonial::class, 'user_id', 'id');
     }
 }

@@ -37,6 +37,10 @@ Route::get('/payment-consultation/{id}', [PaymentController::class, 'create'])->
 Route::post('/payment-consultation', [PaymentController::class, 'store'])->middleware('auth');
 Route::get('/invoice-consultation/{id}', [PaymentController::class, 'invoice']);
 
+Route::get('/mental-test', [ClientController::class, 'mentalTest'])->middleware('auth');
+
+Route::get('/testimonials', [ClientController::class, 'testimonial'])->middleware('auth');
+
 Route::get('/login', [AuthController::class, 'show'])->name('login');
 Route::get('/profile', [AuthController::class, 'profile'])->middleware('auth');
 Route::get('/logout', function () {

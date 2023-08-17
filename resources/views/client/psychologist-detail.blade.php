@@ -44,9 +44,12 @@
                 events: [
                     @foreach ($psychologist->consultations as $consultation)
                         {
-                            title: 'Consultation',
-                            start: '{{ $consultation->booking_date }}',
-                            end: '{{ $consultation->booking_date }}',
+                            @if ($consultation->paymentConsultation->status === 'paid')
+                                title: 'Consultation',
+                                start: '{{ $consultation->booking_date }}',
+                                // end: '{{ $consultation->booking_date }}',
+                            @endif
+
                         },
                     @endforeach
                 ]

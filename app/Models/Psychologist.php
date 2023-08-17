@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Testimonial;
 use App\Models\Consultation;
 use App\Models\PsychologistDetail;
+use App\Models\PaymentConsultation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -40,5 +42,15 @@ class Psychologist extends Model
     public function consultations(): HasMany
     {
         return $this->hasMany(Consultation::class, 'psychologist_id', 'id');
+    }
+
+    public function testimonials(): HasMany
+    {
+        return $this->hasMany(Testimonial::class, 'psychologist_id', 'id');
+    }
+
+    public function paymentConsultation(): HasMany
+    {
+        return $this->hasMany(PaymentConsultation::class, 'psychologist_id', 'id');
     }
 }
