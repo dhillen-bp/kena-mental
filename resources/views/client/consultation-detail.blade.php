@@ -18,7 +18,7 @@
                 <p class="card-text">{{ $consultation->notes }}</p>
             </div>
             <div class="card-footer border-purple d-flex justify-content-between bg-transparent">
-                <a href="/consultation" class="btn btn-secondary">Back</a>
+                <a href="/consultations" class="btn btn-secondary">Back</a>
                 <a href="/export-pdf/{{ $consultation->id }}" class="btn btn-purple">Export to PDF</a>
             </div>
         </div>

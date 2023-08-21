@@ -5,9 +5,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\PsychologistController;
 
@@ -60,3 +63,18 @@ Route::get('/order', [OrderController::class, 'index']);
 Route::post('/checkout', [OrderController::class, 'checkout']);
 // Route::post('/midtrans-callback', [OrderController::class, 'callback']);
 Route::get('/invoice/{id}', [OrderController::class, 'invoice']);
+
+
+// ADMIN
+Route::get('/admin/login', [AuthController::class, 'showLoginAdmin']);
+Route::post('/admin/login', [AuthController::class, 'processLoginAdmin']);
+Route::get('/admin/register', [AuthController::class, 'showRegisterAdmin']);
+Route::post('/admin/register', [AuthController::class, 'processRegisterAdmin']);
+Route::get('/admin/logout', [AuthController::class, 'logout'])->middleware('auth.admin');
+
+Route::get('/admin/psychologists', [PsychologistController::class, 'showAdmin'])->middleware('auth.admin');
+Route::get('/admin/consultations', [ConsultationController::class, 'showAdmin'])->middleware('auth.admin');
+Route::get('/admin/testimonials', [TestimonialController::class, 'showAdmin'])->middleware('auth.admin');
+Route::get('/admin/users', [UserController::class, 'showAdmin'])->middleware('auth.admin');
+
+Route::get('/admin/', [AdminController::class, 'index'])->middleware('auth.admin');
