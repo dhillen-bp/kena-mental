@@ -1,16 +1,16 @@
 @extends('layouts.admin')
-@section('title', 'Data Psychologists')
+@section('title', 'Deleted Psychologists')
 
 @section('admin_content')
     <div class="container my-5">
-        <h1 class="mb-4">Data Psychologists</h1>
+        <h1 class="mb-4">Deleted Psychologists</h1>
         <div class="d-flex justify-content-between">
-            <a href="/admin/add-psychologist" class="btn btn-primary">Add Psychologist Data</a>
-            <a href="/admin/deleted-psychologist" class="btn btn-info">Show Deleted Psychologist</a>
+            <a href="/admin/add-psychologist" class="btn btn-primary">Back</a>
+
         </div>
         <table class="table-striped table">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Alumni</th>
@@ -20,8 +20,8 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($psychologists as $psychologist)
-                    <tr>
+                @foreach ($deletedPsychologists as $psychologist)
+                    <tr class="text-center">
                         <th scope="row">{{ $psychologist->id }}</th>
                         <td>{{ $psychologist->name }}</td>
                         <td>{{ optional($psychologist->psychologistDetail)->university }} -
@@ -31,14 +31,12 @@
                         <td>{{ optional($psychologist->psychologistDetail)->topics }}</td>
                         <td>{{ optional($psychologist->psychologistDetail)->session_count }}</td>
                         <td>
-                            <div class="d-flex justify-content-between">
-                                <a href="/admin/show-psychologist/{{ $psychologist->id }}"
-                                    class="btn btn-primary me-2">Detail</a>
-                                {{-- <a href="/admin/delete-psychologist/{{ $psychologist->id }}"
-                                    class="btn btn-danger">Delete</a> --}}
+                            <div class="d-flex justify-content-around">
+                                <a href="/admin/restore-psychologist/{{ $psychologist->id }}"
+                                    class="btn btn-primary me-2">Restore</a>
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                     data-bs-target="#deleteModal" data-item-id="{{ $psychologist->id }}">
-                                    Delete
+                                    Delete Permanent
                                 </button>
                             </div>
 
@@ -51,7 +49,7 @@
     </div>
 
     <div class="my-5">
-        {{ $psychologists->withQueryString()->links() }}
+        {{ $deletedPsychologists->withQueryString()->links() }}
     </div>
 
     @include('partials.toastr')

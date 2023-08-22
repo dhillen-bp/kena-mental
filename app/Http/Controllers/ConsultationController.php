@@ -80,11 +80,4 @@ class ConsultationController extends Controller
 
         return redirect("/payment-consultation/$consultation->id");
     }
-
-    // ADMIN
-    public function showAdmin()
-    {
-        $consultations = Consultation::with(['paymentConsultation', 'users', 'psychologists'])->paginate(10);
-        return view('admin.consultations', compact('consultations'));
-    }
 }

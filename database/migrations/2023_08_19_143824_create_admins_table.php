@@ -18,6 +18,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role', ['admin', 'psychologist']);
+            $table->char('psychologist_id', 4)->nullable();
+            $table->foreign('psychologist_id')->references('id')->on('psychologists');
             $table->timestamps();
         });
     }

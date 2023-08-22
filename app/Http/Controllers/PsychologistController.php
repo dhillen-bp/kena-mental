@@ -25,17 +25,4 @@ class PsychologistController extends Controller
             ->firstOrFail();
         return view('client.psychologist-detail', ['psychologist' => $psychologist]);
     }
-
-    // just for unit test
-    public static function isPsycholog()
-    {
-        return true;
-    }
-
-    // ADMIN
-    public function showAdmin()
-    {
-        $psychologists = Psychologist::with('psychologistDetail')->paginate(10);
-        return view('admin.psychologists', compact('psychologists'));
-    }
 }

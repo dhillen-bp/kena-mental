@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('payment_consultation', function (Blueprint $table) {
-            $table->foreignUuid('psychologist_id')->after('consultation_id')->references('id')->on('psychologists')->onDelete('restrict');
+            $table->char('psychologist_id', 4);
+            $table->foreign('psychologist_id')->after('consultation_id')->references('id')->on('psychologists')->onDelete('restrict');
             $table->foreignUuid('user_id')->after('psychologist_id')->references('id')->on('users')->onDelete('restrict');
         });
     }

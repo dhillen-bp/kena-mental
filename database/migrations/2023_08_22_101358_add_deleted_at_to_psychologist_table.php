@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('psychologists', function (Blueprint $table) {
-            $table->char('id', 4)->primary();
-            $table->string('name');
-            $table->string('photo')->nullable();
-            $table->string('biography')->nullable();
-            $table->timestamps();
+        Schema::table('psychologists', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('psychologists');
+        Schema::table('psychologists', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

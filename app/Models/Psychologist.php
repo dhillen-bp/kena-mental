@@ -7,22 +7,21 @@ use App\Models\Consultation;
 use App\Models\PsychologistDetail;
 use App\Models\PaymentConsultation;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Psychologist extends Model
 {
     use HasFactory;
-    use HasUuids;
+    use SoftDeletes;
 
     protected $primaryKey = 'id';
+    protected $keyType = 'string';
     public $timestamps = true;
 
-    protected $fillable = [
-        'name', 'photo',
-    ];
+    protected $guarded = [];
 
     /**
      * Get the detail associated with the Psychologist
@@ -52,5 +51,15 @@ class Psychologist extends Model
     public function paymentConsultation(): HasMany
     {
         return $this->hasMany(PaymentConsultation::class, 'psychologist_id', 'id');
+    }
+
+    /**
+     * Get the user associated with the Psychologist
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function admin(): HasOne
+    {
+        return $this->hasOne(Admin::class, 'psychologist_id', 'id');
     }
 }
