@@ -1,12 +1,11 @@
 @extends('layouts.admin')
-@section('title', 'Data Consultations')
+@section('title', 'Deleted Consultations')
 
 @section('admin_content')
     <div class="container my-5">
-        <h1 class="mb-4">Data Consultations</h1>
+        <h1 class="mb-4">Deleted Data Consultations</h1>
         <div class="d-flex justify-content-between mb-4">
-            <a href="/admin/add-consultation" class="btn btn-primary">Add Consultation Data</a>
-            <a href="/admin/deleted-consultations" class="btn btn-info">Show Deleted Consultations</a>
+            <a href="/admin/consultations" class="btn btn-primary">Back</a>
         </div>
         <table class="table-striped table">
             <thead>
@@ -21,32 +20,33 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($consultations as $consultation)
+                @foreach ($deletedConsultations as $consultation)
                     <tr>
-                        <th scope="row">{{ $loop->index + $consultations->firstItem() }}</th>
+                        <th scope="row">{{ $loop->index + $deletedConsultations->firstItem() }}</th>
                         <td>{{ $consultation->id }}</td>
                         <td>{{ $consultation->users->name }}</td>
                         <td>{{ $consultation->psychologists->name }}</td>
                         <td>{{ $consultation->booking_date }}</td>
                         <td>{{ optional($consultation->paymentConsultation)->status }}</td>
-                        <td class="d-flex justify-content-between">
-                            <a href="/admin/show-consultation/{{ $consultation->id }}" class="btn btn-primary">Detail</a>
+                        <td class="d-flex justify-content-around">
+                            <a href="/admin/restore-consultation/{{ $consultation->id }}"
+                                class="btn btn-primary me-2">Restore</a>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal" data-item-id="{{ $consultation->id }}">
-                                Delete
+                                Delete Permanent
                             </button>
                         </td>
                     </tr>
                 @endforeach
-                @if ($consultations->isNotEmpty())
-                    @include('partials.modal._modal_delete_consultation')
+                @if ($deletedConsultations->isNotEmpty())
+                    @include('partials.modal._modal_delete_permanent_consultation')
                 @endif
             </tbody>
         </table>
     </div>
 
     <div class="my-5">
-        {{ $consultations->links() }}
+        {{ $deletedConsultations->links() }}
     </div>
 
     @include('partials.toastr')

@@ -34,4 +34,5 @@
         {{ $users->withQueryString()->links() }}
     </div>
 
+    @include('partials.toastr')
 @endsection

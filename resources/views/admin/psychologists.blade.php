@@ -45,7 +45,9 @@
                         </td>
                     </tr>
                 @endforeach
-                @include('partials._delete_modal')
+                @if ($psychologists->isNotEmpty())
+                    @include('partials.modal._modal_delete_psychologist')
+                @endif
             </tbody>
         </table>
     </div>

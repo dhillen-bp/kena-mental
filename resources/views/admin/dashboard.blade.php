@@ -11,9 +11,9 @@
                     <img src="{{ asset('images/icons/user.png') }}" class="card-img-top" alt="Card-Icon"
                         style="max-height: 150px; width: auto; object-fit: contain;">
                     <div class="card-body d-flex flex-column justify-content-between">
-                        <h5 class="card-title">Users</h5>
+                        <h5 class="card-title text-center">Users</h5>
                         <p class="card-text">We have {{ $userCount }} users</p>
-                        <a href="#" class="btn btn-primary align-self-center">See Details</a>
+                        <a href="/admin/users" class="btn btn-primary align-self-center">See Details</a>
                     </div>
                 </div>
             </div>
@@ -22,9 +22,9 @@
                     <img src="{{ asset('images/icons/psychologist.png') }}" class="card-img-top" alt="Card-Icon"
                         style="max-height: 150px; width: auto; object-fit: contain;">
                     <div class="card-body d-flex flex-column justify-content-between">
-                        <h5 class="card-title">Psychologists</h5>
+                        <h5 class="card-title text-center">Psychologists</h5>
                         <p class="card-text">We have {{ $psychologistCount }} psychologist</p>
-                        <a href="#" class="btn btn-primary align-self-center">See Details</a>
+                        <a href="/admin/psychologists" class="btn btn-primary align-self-center">See Details</a>
                     </div>
                 </div>
             </div>
@@ -33,9 +33,9 @@
                     <img src="{{ asset('images/icons/consultation.png') }}" class="card-img-top" alt="Card-Icon"
                         style="max-height: 150px; width: auto; object-fit: contain;">
                     <div class="card-body d-flex flex-column justify-content-between">
-                        <h5 class="card-title">Consultations</h5>
+                        <h5 class="card-title text-center">Consultations</h5>
                         <p class="card-text">We have {{ $consultationCount }} consultations</p>
-                        <a href="#" class="btn btn-primary align-self-center">See Details</a>
+                        <a href="/admin/consultations" class="btn btn-primary align-self-center">See Details</a>
                     </div>
                 </div>
             </div>
@@ -44,9 +44,9 @@
                     <img src="{{ asset('images/icons/testimonial.png') }}" class="card-img-top" alt="Card-Icon"
                         style="max-height: 150px; width: auto; object-fit: contain;">
                     <div class="card-body d-flex flex-column justify-content-between">
-                        <h5 class="card-title">Testimonials</h5>
+                        <h5 class="card-title text-center">Testimonials</h5>
                         <p class="card-text">We have {{ $testimonialCount }} testimonials</p>
-                        <a href="#" class="btn btn-primary align-self-center">See Details</a>
+                        <a href="/admin/testimonials" class="btn btn-primary align-self-center">See Details</a>
                     </div>
                 </div>
             </div>

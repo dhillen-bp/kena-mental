@@ -5,18 +5,18 @@
     <div class="container my-5">
         <h1 class="mb-4">Deleted Psychologists</h1>
         <div class="d-flex justify-content-between">
-            <a href="/admin/add-psychologist" class="btn btn-primary">Back</a>
+            <a href="/admin/psychologists" class="btn btn-primary">Back</a>
 
         </div>
         <table class="table-striped table">
             <thead>
                 <tr class="text-center">
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Alumni</th>
+                    <th scope="col" class="col-1">#</th>
+                    <th scope="col" class="col-2">Name</th>
+                    <th scope="col" class="col-2">Alumni</th>
                     <th scope="col">Topics</th>
-                    <th scope="col">Session Count</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" class="col-1">Session Count</th>
+                    <th scope="col" class="col-3">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,7 +31,7 @@
                         <td>{{ optional($psychologist->psychologistDetail)->topics }}</td>
                         <td>{{ optional($psychologist->psychologistDetail)->session_count }}</td>
                         <td>
-                            <div class="d-flex justify-content-around">
+                            <div class="d-flex justify-content-around justify-items-center">
                                 <a href="/admin/restore-psychologist/{{ $psychologist->id }}"
                                     class="btn btn-primary me-2">Restore</a>
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
@@ -43,7 +43,9 @@
                         </td>
                     </tr>
                 @endforeach
-                @include('partials._delete_modal')
+                @if ($deletedPsychologists->isNotEmpty())
+                    @include('partials.modal._modal_delete_permanent_psychologist')
+                @endif
             </tbody>
         </table>
     </div>
@@ -52,5 +54,7 @@
         {{ $deletedPsychologists->withQueryString()->links() }}
     </div>
 
+
     @include('partials.toastr')
+
 @endsection

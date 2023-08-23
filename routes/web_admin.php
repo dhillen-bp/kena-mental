@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\ConsultationController;
 use App\Http\Controllers\Admin\PsychologistController;
 use App\Http\Controllers\Admin\PsychologistDetailController;
+use App\Http\Controllers\Admin\PaymentConsultationController;
 
 
 Route::prefix('admin')->group(function () {
@@ -35,6 +36,18 @@ Route::prefix('admin')->group(function () {
         Route::put('/detail-psychologist/{id}', [PsychologistDetailController::class, 'update']);
 
         Route::get('/consultations', [ConsultationController::class, 'index']);
+        Route::get('/add-consultation', [ConsultationController::class, 'create']);
+        Route::post('/add-consultation', [ConsultationController::class, 'store']);
+        Route::get('/show-consultation/{id}', [ConsultationController::class, 'show']);
+        Route::get('/edit-consultation/{id}', [ConsultationController::class, 'edit']);
+        Route::put('/edit-consultation/{id}', [ConsultationController::class, 'update']);
+        Route::delete('/delete-consultation/{id}', [ConsultationController::class, 'destroy']);
+        Route::get('/deleted-consultations', [ConsultationController::class, 'showDeletedConsultations']);
+        Route::get('/restore-consultation/{id}', [ConsultationController::class, 'restore']);
+        Route::delete('/delete-permanent-consultation/{id}', [ConsultationController::class, 'destroyPermanent']);
+
+        Route::get('/detail-consultation/{id}', [PaymentConsultationController::class, 'edit']);
+        Route::put('/detail-consultation/{id}', [PaymentConsultationController::class, 'update']);
 
         Route::get('/testimonials', [TestimonialController::class, 'index']);
 

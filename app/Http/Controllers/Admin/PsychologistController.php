@@ -112,15 +112,15 @@ class PsychologistController extends Controller
      */
     public function destroy($id)
     {
-        $psychologist = Psychologist::where('id', $id)->firstOrFail();
+        $psychologist = Psychologist::find($id);
         $psychologist->delete();
 
-        $psychologistDetail = PsychologistDetail::where('psychologist_id', $id)->firstOrFail();
+        $psychologistDetail = PsychologistDetail::where('psychologist_id', $id)->first();
         if ($psychologistDetail) {
             $psychologistDetail->delete();
         }
 
-        return redirect('/admin/psychologists')->with('status', 'Psychologist Deleted Successfully!');
+        return redirect('/admin/psychologists')->with('success', 'Psychologist Deleted Successfully!');
     }
 
     public function showDeletedPsychologists()
@@ -133,18 +133,18 @@ class PsychologistController extends Controller
 
     public function destroyPermanent($id)
     {
-        $deletedPsychologist = Psychologist::withTrashed()->where('id', $id)->firstOrFail();
-        $deletedPsychologist->psychologistDetail->delete();
+        $deletedPsychologist = Psychologist::with(['psychologistDetail' => function ($query) {
+            $query->withTrashed();
+        }])->onlyTrashed()->first();
 
-        $psychologistDetail = PsychologistDetail::withTrashed()->where('psychologist_id', $id)->firstOrFail();
-        if ($psychologistDetail) {
-            $psychologistDetail->delete();
+        if ($deletedPsychologist->psychologistDetail) {
+            $deletedPsychologist->psychologistDetail->forceDelete();
         }
 
         $deletedPsychologist->forceDelete();
         $deletePhoto = Storage::disk('public')->delete('images/psychologist_photo/' . $deletedPsychologist->photo);
 
-        return redirect('/admin/psychologists')->with('status', 'Psychologist Deleted Successfully!');
+        return redirect('/admin/deleted-psychologists')->with('success', 'Psychologist Deleted Permanent Successfully!');
     }
 
 
@@ -154,9 +154,11 @@ class PsychologistController extends Controller
             $query->withTrashed();
         }])->onlyTrashed()->where('id', $id)->firstOrFail();
 
-        $psychologist->psychologistDetail->restore();
+        if ($psychologist->psychologistDetail) {
+            $psychologist->psychologistDetail->restore();
+        }
         $psychologist->restore();
 
-        return redirect('/admin/psychologists')->with('status', 'Psychologist Restored Successfully!');
+        return redirect('/admin/psychologists')->with('success', 'Psychologist Restored Successfully!');
     }
 }

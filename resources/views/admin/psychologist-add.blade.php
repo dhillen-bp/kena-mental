@@ -13,7 +13,8 @@
             </div>
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="name" name="name" id="name" class="form-control" required>
+                <input type="name" name="name" id="name" class="form-control" value="{{ old('name') }}"
+                    required>
             </div>
             <div class="mb-3">
                 <label for="photo" class="form-label">Photo</label>
@@ -21,7 +22,7 @@
             </div>
             <div class="mb-3">
                 <label for="biography" class="form-label">Biography</label>
-                <textarea name="biography" id="" cols="30" rows="5" class="form-control"></textarea>
+                <textarea name="biography" id="" cols="30" rows="5" class="form-control">{{ old('biography') }}</textarea>
             </div>
             <div class="d-flex justify-content-between mb-3">
                 <a href="/admin/psychologists" class="btn btn-secondary">Back</a>
