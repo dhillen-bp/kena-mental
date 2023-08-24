@@ -9,6 +9,7 @@ use App\Models\Consultation;
 use App\Models\Psychologist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -29,7 +30,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        $psychologists = Psychologist::select('id', 'name')->get();
+        return view('admin.admin-add', compact('psychologists'));
     }
 
     /**
@@ -37,7 +39,22 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|unique:admins|max:255',
+            'email' => 'required',
+            'password' => 'required',
+            'role' => 'required',
+            'psychologist_id' => 'nullable|unique:admins',
+        ]);
+
+        $request->merge(['password' => Hash::make($request->password)]);
+        $request['name'] = trim($request['name']);
+        if ($request['role'] === 'admin') {
+            $request->except('psychologist_id');
+        }
+
+        $admin = Admin::create($request->all());
+        return redirect('/admin/show-admin')->with('success', "Admin Added Successfully!");
     }
 
     /**
@@ -45,30 +62,76 @@ class AdminController extends Controller
      */
     public function show(Admin $admin)
     {
-        //
+        $admins = Admin::paginate(10);
+        return view('admin.admin-show', compact('admins'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Admin $admin)
+    public function edit($id)
     {
-        //
+        $admin = Admin::find($id);
+        $psychologists = Psychologist::select('id', 'name')->get();
+        return view('admin.admin-edit', compact('admin', 'psychologists'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|unique:admins|max:255',
+            'email' => 'required',
+            'password' => 'required',
+            'role' => 'required',
+            'psychologist_id' => 'nullable|unique:admins',
+        ]);
+
+        $request->merge(['password' => Hash::make($request->password)]);
+        $request['name'] = trim($request['name']);
+        if ($request['role'] === 'admin') {
+            $request->except('psychologist_id');
+        }
+
+        $admin = Admin::find($id);
+        $adminUpdate = $admin->update($request->all());
+        return redirect('/admin/show-admin')->with('success', "Admin  Updated Successfully!")->withErrors($validated);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Admin $admin)
+    public function destroy($id)
     {
-        //
+        $admin = Admin::find($id);
+        $admin->delete();
+
+        return redirect('/admin/show-admin')->with('success', 'Admin Deleted Successfully!');
+    }
+
+    public function showDeletedAdmins()
+    {
+        $deletedAdmins = Admin::onlyTrashed()->paginate(10);
+        return view('admin.admin-deleted', compact('deletedAdmins'));
+    }
+
+    public function restore($id)
+    {
+        $admin = Admin::onlyTrashed()->find($id);
+
+        $admin->restore();
+
+        return redirect('/admin/show-admin')->with('success', 'Admin Restored Successfully!');
+    }
+
+    public function destroyPermanent($id)
+    {
+        $deletedAdmin = Admin::onlyTrashed()->find($id);
+
+        $deletedAdmin->forceDelete();
+
+        return redirect('/admin/deleted-testimonials')->with('success', 'Admin Deleted Permanent Successfully!');
     }
 }

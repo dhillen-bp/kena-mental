@@ -1,27 +1,27 @@
 <script>
     @if (Session::has('success'))
-        toastr.options = {
+        _toastr.options = {
             "closeButton": true,
             "progressBar": true
         }
-        toastr.success("{{ session('success') }}");
+        _toastr.success("{{ session('success') }}");
     @endif
 
     // @if ($errors->any())
-    //     toastr.options = {
+    //     _toastr.options = {
     //         "closeButton": true,
     //         "progressBar": true
     //     }
     //     @foreach ($errors->all() as $error)
-    //         toastr.error("{{ $error }}");
+    //         _toastr.error("{{ $error }}");
     //     @endforeach
     // @endif
 
     @if (Session::has('error'))
-        toastr.options = {
+        _toastr.options = {
             "closeButton": true,
             "progressBar": true
         }
-        toastr.error("{{ session('error') }}");
+        _toastr.error("{{ session('error') }}");
     @endif
 </script>

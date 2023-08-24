@@ -56,5 +56,5 @@
         {{ $psychologists->withQueryString()->links() }}
     </div>
 
-    @include('partials.toastr')
+    @include('partials._toastr')
 @endsection

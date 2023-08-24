@@ -26,4 +26,5 @@
             </div>
         </div>
     </div>
+    @include('partials._toastr')
 @endsection

@@ -1,0 +1,51 @@
+@extends('layouts.admin')
+@section('title', 'Data Admins')
+
+@section('admin_content')
+    <div class="container my-5">
+        <h1 class="mb-4">Data Admins</h1>
+        <div class="d-flex justify-content-between mb-4">
+            <a href="/admin/add-admin" class="btn btn-primary">Add Admin</a>
+            <a href="/admin/deleted-admins" class="btn btn-info">Show Deleted Admins</a>
+        </div>
+        <table class="table-striped table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Psychologist ID</th>
+                    <th scope="col" class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($admins as $admin)
+                    <tr>
+                        <th scope="row">{{ $loop->index + $admins->firstItem() }}</th>
+                        <td>{{ $admin->name }}</td>
+                        <td>{{ $admin->email }}</td>
+                        <td>{{ $admin->role }}</td>
+                        <td>{{ $admin->psychologist_id }}</td>
+                        <td class="d-flex justify-content-around">
+                            <a href="/admin/edit-admin/{{ $admin->id }}" class="btn btn-primary">Edit</a>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#deleteModal" data-item-id="{{ $admin->id }}">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                @endforeach
+                @if ($admins->isNotEmpty())
+                    @include('partials.modal._modal_delete_admin')
+                @endif
+            </tbody>
+        </table>
+    </div>
+
+    <div class="my-5">
+        {{ $admins->withQueryString()->links() }}
+    </div>
+
+    @include('partials._toastr')
+@endsection

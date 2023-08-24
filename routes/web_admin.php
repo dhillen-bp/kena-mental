@@ -21,6 +21,16 @@ Route::prefix('admin')->group(function () {
         Route::get('/logout', [AuthController::class, 'logout']);
         Route::get('/', [AdminController::class, 'index']);
 
+        Route::get('/show-admin', [AdminController::class, 'show']);
+        Route::get('/add-admin', [AdminController::class, 'create']);
+        Route::post('/add-admin', [AdminController::class, 'store']);
+        Route::get('/edit-admin/{id}', [AdminController::class, 'edit']);
+        Route::put('/edit-admin/{id}', [AdminController::class, 'update']);
+        Route::delete('/delete-admin/{id}', [AdminController::class, 'destroy']);
+        Route::get('/deleted-admins', [AdminController::class, 'showDeletedAdmins']);
+        Route::get('/restore-admin/{id}', [AdminController::class, 'restore']);
+        Route::delete('/delete-permanent-admin/{id}', [AdminController::class, 'destroyPermanent']);
+
         Route::get('/psychologists', [PsychologistController::class, 'index']);
         Route::get('/add-psychologist', [PsychologistController::class, 'create']);
         Route::post('/add-psychologist', [PsychologistController::class, 'store']);
@@ -50,6 +60,14 @@ Route::prefix('admin')->group(function () {
         Route::put('/detail-consultation/{id}', [PaymentConsultationController::class, 'update']);
 
         Route::get('/testimonials', [TestimonialController::class, 'index']);
+        Route::get('/add-testimonial', [TestimonialController::class, 'create']);
+        Route::post('/add-testimonial', [TestimonialController::class, 'store']);
+        Route::get('/edit-testimonial/{id}', [TestimonialController::class, 'edit']);
+        Route::put('/edit-testimonial/{id}', [TestimonialController::class, 'update']);
+        Route::delete('/delete-testimonial/{id}', [TestimonialController::class, 'destroy']);
+        Route::get('/deleted-testimonials', [TestimonialController::class, 'showDeletedTestimonials']);
+        Route::get('/restore-testimonial/{id}', [TestimonialController::class, 'restore']);
+        Route::delete('/delete-permanent-testimonial/{id}', [TestimonialController::class, 'destroyPermanent']);
 
         Route::get('/users', [UserController::class, 'index']);
     });

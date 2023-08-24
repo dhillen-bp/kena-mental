@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Psychologist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -133,7 +134,8 @@ class AuthController extends Controller
 
     public function showRegisterAdmin()
     {
-        return view('auth.register-admin');
+        $psychologists = Psychologist::select('id', 'name')->get();
+        return view('auth.register-admin', compact('psychologists'));
     }
 
     public function processRegisterAdmin(Request $request)
@@ -146,12 +148,16 @@ class AuthController extends Controller
 
         // $request->password = Hash::make($request->password);
         $request->merge(['password' => Hash::make($request->password)]);
+        $request['name'] = trim($request['name']);
+        if ($request['role'] === 'admin') {
+            $request->except('psychologist_id');
+        }
+        // return var_dump($request->all());
         $admin = Admin::create($request->all());
 
-        Session::flash('status', 'success');
-        Session::flash('message', 'Register success');
+        Session::flash('success', 'Register success');
 
-        return redirect('/admin/register');
+        return redirect('/admin/register')->with('success', "Admin created Successfully!")->withErrors($validated);;
     }
 
     public function logout(Request $request): RedirectResponse

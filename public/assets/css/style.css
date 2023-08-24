@@ -1,3 +1,7 @@
+body{
+    height: 100%;
+}
+
 .bg-purple {
     background-color: #A46FDA;
     color: white;
