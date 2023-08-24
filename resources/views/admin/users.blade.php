@@ -3,7 +3,11 @@
 
 @section('admin_content')
     <div class="container my-5">
-        <h1 class="mb-4">Data Users</h1>
+        <h1 class="">Data Users</h1>
+        <div class="d-flex justify-content-between mb-4">
+            <a href="/admin/add-user" class="btn btn-primary">Add User Data</a>
+            <a href="/admin/deleted-users" class="btn btn-info">Show Deleted User</a>
+        </div>
         <table class="table-striped table">
             <thead>
                 <tr>
@@ -21,11 +25,18 @@
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>
-                            <a href="/admin/user-detail/{{ $user->id }}" class="btn btn-primary">Detail</a>
+                        <td class="d-flex justify-content-around">
+                            <a href="/admin/edit-user/{{ $user->id }}" class="btn btn-primary">Edit</a>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#deleteModal" data-item-id="{{ $user->id }}">
+                                Delete
+                            </button>
                         </td>
                     </tr>
                 @endforeach
+                @if ($users->isNotEmpty())
+                    @include('partials.modal._modal_delete_user')
+                @endif
             </tbody>
         </table>
     </div>

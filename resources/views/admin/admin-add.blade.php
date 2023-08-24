@@ -41,7 +41,7 @@
             </div>
             <div class="d-flex justify-content-between mb-3">
                 <a href="/admin/show-admin" class="btn btn-secondary">Back</a>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary">Store</button>
             </div>
         </form>
     </div>

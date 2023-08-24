@@ -46,31 +46,27 @@
                                 <a class="nav-link {{ Request::is('admin/testimonials') ? 'active' : '' }}"
                                     href="/admin/testimonials">Testimonials</a>
                             </li>
-                            @auth('admin')
-                                <li class="nav-item">
-                                    <a class="nav-link {{ Request::is('profile') ? 'active' : '' }}"
-                                        href="/admin/profile">Profile</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/admin/logout">Logout</a>
-                                </li>
-                            @else
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ '/admin/login' }}">Login</a>
-                                </li>
-                            @endauth
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
-                                    Dropdown
+                                    Account
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li>
+                                    @auth('admin')
+                                        <li class="nav-item">
+                                            <a class="dropdown-item {{ Request::is('profile') ? 'active' : '' }}"
+                                                href="/admin/profile">Profile</a>
+                                        </li>
                                         <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                        <li class="nav-item">
+                                            <a class="dropdown-item" href="/admin/logout">Logout</a>
+                                        </li>
+                                    @else
+                                        <li class="nav-item">
+                                            <a class="dropdown-item" href="{{ '/admin/login' }}">Login</a>
+                                        </li>
+                                    @endauth
                                 </ul>
                             </li>
                         </ul>

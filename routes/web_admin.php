@@ -20,6 +20,8 @@ Route::prefix('admin')->group(function () {
     Route::middleware('auth.admin')->group(function () {
         Route::get('/logout', [AuthController::class, 'logout']);
         Route::get('/', [AdminController::class, 'index']);
+        Route::get('/profile', [AdminController::class, 'showProfile']);
+        Route::put('/profile', [AdminController::class, 'updateProfile']);
 
         Route::get('/show-admin', [AdminController::class, 'show']);
         Route::get('/add-admin', [AdminController::class, 'create']);
@@ -70,5 +72,13 @@ Route::prefix('admin')->group(function () {
         Route::delete('/delete-permanent-testimonial/{id}', [TestimonialController::class, 'destroyPermanent']);
 
         Route::get('/users', [UserController::class, 'index']);
+        Route::get('/add-user', [UserController::class, 'create']);
+        Route::post('/add-user', [UserController::class, 'store']);
+        Route::get('/edit-user/{id}', [UserController::class, 'edit']);
+        Route::put('/edit-user/{id}', [UserController::class, 'update']);
+        Route::delete('/delete-user/{id}', [UserController::class, 'destroy']);
+        Route::get('/deleted-users', [UserController::class, 'showDeletedUsers']);
+        Route::get('/restore-user/{id}', [UserController::class, 'restore']);
+        Route::delete('/delete-permanent-user/{id}', [UserController::class, 'destroyPermanent']);
     });
 });

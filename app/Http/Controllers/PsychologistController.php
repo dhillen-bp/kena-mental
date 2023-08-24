@@ -17,10 +17,7 @@ class PsychologistController extends Controller
 
     public function show($id)
     {
-        $psychologist = Psychologist::with(['psychologistDetail', 'consultations.paymentConsultation'])
-            ->whereHas('consultations.paymentConsultation', function ($query) {
-                $query->where('status', 'paid');
-            })
+        $psychologist = Psychologist::with(['psychologistDetail',])
             ->where('id', $id)
             ->firstOrFail();
         return view('client.psychologist-detail', ['psychologist' => $psychologist]);

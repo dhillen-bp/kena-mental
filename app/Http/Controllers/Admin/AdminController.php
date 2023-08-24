@@ -134,4 +134,34 @@ class AdminController extends Controller
 
         return redirect('/admin/deleted-testimonials')->with('success', 'Admin Deleted Permanent Successfully!');
     }
+
+    public function showProfile()
+    {
+        $loggedInAdmin = auth('admin')->user();
+        $profileData = [];
+
+        if ($loggedInAdmin) {
+            $profileData['id'] = $loggedInAdmin->id;
+            $profileData['name'] = $loggedInAdmin->name;
+            $profileData['email'] = $loggedInAdmin->email;
+        }
+
+        return view('admin.profile', compact('profileData'));
+    }
+    public function updateProfile(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        $request->merge(['password' => Hash::make($request->password)]);
+        $request['name'] = trim($request['name']);
+
+        $admin = Admin::find(auth('admin')->user()->id);
+        $adminUpdate = $admin->update($request->all());
+
+        return redirect('/admin/profile')->with('success', "Profile  Updated Successfully!")->withErrors($validated);
+    }
 }

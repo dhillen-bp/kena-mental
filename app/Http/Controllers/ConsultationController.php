@@ -62,14 +62,14 @@ class ConsultationController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $validated = $request->validate([
             'user_id' => 'required',
             'psychologist_id' => 'required',
             'booking_date' => 'required',
         ]);
 
-        $existingConsultation = Consultation::where('psychologist_id', $validatedData['psychologist_id'])
-            ->where('booking_date', $validatedData['booking_date'])
+        $existingConsultation = Consultation::where('psychologist_id', $validated['psychologist_id'])
+            ->where('booking_date', $validated['booking_date'])
             ->first();
 
         if ($existingConsultation) {
@@ -78,6 +78,6 @@ class ConsultationController extends Controller
 
         $consultation = Consultation::create($request->all());
 
-        return redirect("/payment-consultation/$consultation->id");
+        return redirect("/payment-consultation/$consultation->id")->with('success', "Profile  Updated Successfully!")->withErrors($validated);
     }
 }

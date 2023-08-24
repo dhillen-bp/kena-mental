@@ -8,10 +8,10 @@
         <div class="row g-0">
             <div class="col-md-4 bg-purple">
                 @if ($psychologist->photo != '')
-                    <img src="{{ asset('images/psychologist-photo/' . $psychologist->photo) }}"
+                    <img src="{{ asset('storage/images/psychologist_photo/' . $psychologist->photo) }}"
                         style="width: 200px; height: 100%; object-fit: cover;">
                 @else
-                    <img src="{{ asset('images/default.jpg') }}" alt="Photo" width="200px">
+                    <img src="{{ asset('storage/images/psychologist_photo/default.png') }}" alt="Photo" width="200px">
                 @endif
             </div>
             <div class="col-md-8 bg-light">

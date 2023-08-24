@@ -8,8 +8,8 @@
             @foreach ($psychologists as $psychologist)
                 <div class="col-md-4">
                     <div class="card mb-4">
-                        <img src="{{ asset('images/psychologist-photo/' . $psychologist->photo) }}" class="card-img-top"
-                            alt="Psychologist-Photo">
+                        <img src="{{ asset('storage/images/psychologist_photo/' . $psychologist->photo) }}"
+                            class="card-img-top" alt="Psychologist-Photo">
                         <div class="card-body">
                             <h3 class="card-title text-center">{{ $psychologist->name }}</h3>
                             <h5>Biography</h5>

@@ -47,7 +47,7 @@
         </div>
     </nav>
 
-    <div class="container py-5">
+    <div class="container py-5" style="min-height: 100vh;">
         <!-- Content here -->
         @yield('client_content')
     </div>
@@ -78,4 +78,5 @@
             <p class="text-secondary mb-3 mt-2 text-center">© 2023 kenamental.com</p>
         </div>
     </footer>
+    @include('partials._toastr')
 @endsection
