@@ -8,6 +8,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\PsychologistController;
+use App\Http\Controllers\QuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,9 @@ Route::post('/payment-consultation', [PaymentController::class, 'store'])->middl
 Route::get('/invoice-consultation/{id}', [PaymentController::class, 'invoice']);
 
 Route::get('/mental-test', [ClientController::class, 'mentalTest'])->middleware('auth');
+Route::get('/mental-test/{id}', [QuestionController::class, 'show'])->middleware('auth');
+Route::post('/mental-test/result', [QuestionController::class, 'store'])->middleware('auth');
+Route::get('/mental-test/result/{user_id}/{completed_at}', [QuestionController::class, 'result'])->middleware('auth')->name('mental-test.result');
 
 Route::get('/testimonials', [ClientController::class, 'testimonial'])->middleware('auth');
 

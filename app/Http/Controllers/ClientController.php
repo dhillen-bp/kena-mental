@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MentalTest;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class ClientController extends Controller
 
     public function mentalTest()
     {
-        return view('client.mental-test');
+        $tests = MentalTest::get();
+        return view('client.mental-test', compact('tests'));
     }
 
     public function testimonial()

@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('address');
-            $table->string('phone');
-            $table->integer('qty');
-            $table->bigInteger('total_price');
-            $table->enum('status', ['unpaid', 'paid']);
+        Schema::create('mental_tests', function (Blueprint $table) {
+            $table->char('id', 5)->primary();
+            $table->string('title');
+            $table->text('desc')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('mental_tests');
     }
 };
