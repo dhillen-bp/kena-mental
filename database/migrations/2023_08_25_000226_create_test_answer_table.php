@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->unsignedBigInteger('question_id');
             $table->foreign('question_id')->references('id')->on('test_questions');
-            $table->string('choice');
+            $table->text('choice');
             $table->integer('score')->nullable();
             $table->timestamps();
             $table->softDeletes();

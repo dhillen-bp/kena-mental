@@ -50,6 +50,7 @@ Route::get('/mental-test', [ClientController::class, 'mentalTest'])->middleware(
 Route::get('/mental-test/{id}', [QuestionController::class, 'show'])->middleware('auth');
 Route::post('/mental-test/result', [QuestionController::class, 'store'])->middleware('auth');
 Route::get('/mental-test/result/{user_id}/{completed_at}', [QuestionController::class, 'result'])->middleware('auth')->name('mental-test.result');
+Route::get('/test', [QuestionController::class, 'test'])->middleware('auth');
 
 Route::get('/testimonials', [ClientController::class, 'testimonial'])->middleware('auth');
 

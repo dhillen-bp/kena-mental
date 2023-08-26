@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResultTestHelper;
 use App\Models\Answer;
 use App\Models\Question;
 use App\Models\MentalTest;
@@ -55,6 +56,8 @@ class QuestionController extends Controller
         $testResults = ResultTest::where('user_id', $user_id)
             ->where('test_completed_at', $completed_at)
             ->get();
+        $testId = $testResults->first()->test_id;
+        $testName = MentalTest::find($testId)->title;
 
         // Mengambil id jawaban yang dipilih dari tabel result_tests
         $answerIds = $testResults->pluck('answer_id')->toArray();
@@ -64,18 +67,20 @@ class QuestionController extends Controller
             ::whereIn('id', $answerIds)
             ->sum('score');
 
-        // Menghitung rata-rata skor
-        $averageScore = $totalScore / count($answerIds);
-
-        // Menentukan tingkat stres berdasarkan rata-rata skor
-        if ($averageScore <= 1.5) {
-            $stressLevel = 'Rendah';
-        } elseif ($averageScore <= 2.5) {
-            $stressLevel = 'Sedang';
-        } else {
-            $stressLevel = 'Tinggi';
+        $result = [];
+        if ($testId === 'TS001') {
+            $result = ResultTestHelper::testStress($totalScore, $answerIds);
+        } elseif ($testId === 'TS002') {
+            $result = ResultTestHelper::testLoneliness($totalScore, $answerIds);
+        } elseif ($testId === 'TS003') {
+            $result = ResultTestHelper::testLoveLanguage($totalScore, $answerIds);
         }
 
-        return view('client.test-result', compact('stressLevel'));
+        return view('client.test-result', compact('result', 'testName'));
+    }
+
+    public function test()
+    {
+        return view('client.test-result');
     }
 }

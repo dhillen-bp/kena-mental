@@ -8,8 +8,13 @@
             @foreach ($psychologists as $psychologist)
                 <div class="col-md-4">
                     <div class="card mb-4">
-                        <img src="{{ asset('storage/images/psychologist_photo/' . $psychologist->photo) }}"
-                            class="card-img-top" alt="Psychologist-Photo">
+                        @if ($psychologist->photo != '')
+                            <img src="{{ asset('storage/images/psychologist_photo/' . $psychologist->photo) }}"
+                                class="card-img-top" alt="Psychologist-Photo">
+                        @else
+                            <img src="{{ asset('storage/images/psychologist_photo/default.png') }}" class="card-img-top"
+                                alt="Psychologist-Photo">
+                        @endif
                         <div class="card-body">
                             <h3 class="card-title text-center">{{ $psychologist->name }}</h3>
                             <h5>Biography</h5>

@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             PsychologistsTableSeeder::class,
             PsychologistDetailTableSeeder::class,
             MentalTestTableSeeder::class,
+            QuestionTableSeeder::class,
+            AnswerTableSeeder::class,
         ]);
     }
 }
