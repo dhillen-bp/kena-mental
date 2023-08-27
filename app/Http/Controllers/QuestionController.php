@@ -53,7 +53,7 @@ class QuestionController extends Controller
     public function result($user_id, $completed_at)
     {
 
-        $testResults = ResultTest::where('user_id', $user_id)
+        $testResults = ResultTest::with('answer:id,score')->where('user_id', $user_id)
             ->where('test_completed_at', $completed_at)
             ->get();
         $testId = $testResults->first()->test_id;
@@ -61,6 +61,11 @@ class QuestionController extends Controller
 
         // Mengambil id jawaban yang dipilih dari tabel result_tests
         $answerIds = $testResults->pluck('answer_id')->toArray();
+
+        // mengambil score dari jawaban
+        $answerScores = $testResults->map(function ($result) {
+            return $result->answer->score;
+        })->toArray();
 
         // Menghitung total skor berdasarkan id jawaban dari tabel test_answers
         $totalScore = Answer
@@ -73,7 +78,7 @@ class QuestionController extends Controller
         } elseif ($testId === 'TS002') {
             $result = ResultTestHelper::testLoneliness($totalScore, $answerIds);
         } elseif ($testId === 'TS003') {
-            $result = ResultTestHelper::testLoveLanguage($totalScore, $answerIds);
+            $result = ResultTestHelper::testLoveLanguage($answerScores, $totalScore, $answerIds);
         }
 
         return view('client.test-result', compact('result', 'testName'));

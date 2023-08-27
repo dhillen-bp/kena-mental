@@ -124,6 +124,8 @@ class AuthController extends Controller
             $admin = Auth::guard('admin')->user();
             if ($admin->role === 'admin') {
                 return redirect('/admin/');
+            } elseif ($admin->role === 'psychologist') {
+                return redirect('/admin/psychologist');
             }
         } else {
             Session::flash('status', 'fail');

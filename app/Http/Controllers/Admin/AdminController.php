@@ -144,6 +144,7 @@ class AdminController extends Controller
             $profileData['id'] = $loggedInAdmin->id;
             $profileData['name'] = $loggedInAdmin->name;
             $profileData['email'] = $loggedInAdmin->email;
+            $profileData['psychologist_id'] = $loggedInAdmin->psychologist_id;
         }
 
         return view('admin.profile', compact('profileData'));

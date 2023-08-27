@@ -7,9 +7,10 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\ConsultationController;
 use App\Http\Controllers\Admin\PsychologistController;
+use App\Http\Controllers\Psychologist\DashboardController;
 use App\Http\Controllers\Admin\PsychologistDetailController;
 use App\Http\Controllers\Admin\PaymentConsultationController;
-
+use App\Http\Controllers\Psychologist\ConsultationPsychologistController;
 
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginAdmin']);
@@ -80,5 +81,16 @@ Route::prefix('admin')->group(function () {
         Route::get('/deleted-users', [UserController::class, 'showDeletedUsers']);
         Route::get('/restore-user/{id}', [UserController::class, 'restore']);
         Route::delete('/delete-permanent-user/{id}', [UserController::class, 'destroyPermanent']);
+    });
+
+    Route::middleware('auth.psychologist')->group(function () {
+        Route::get('/psychologist/logout', [AuthController::class, 'logout']);
+        Route::get('/psychologist/profile', [AdminController::class, 'showProfile']);
+        Route::put('/psychologist/profile', [AdminController::class, 'updateProfile']);
+
+        Route::get('/psychologist', [DashboardController::class, 'index']);
+        Route::get('/psychologist/consultation-upcoming', [ConsultationPsychologistController::class, 'showUpcoming']);
+        Route::get('/psychologist/consultation-completed', [ConsultationPsychologistController::class, 'showCompleted']);
+        Route::patch('/psychologist/consultation-completed/{id}', [ConsultationPsychologistController::class, 'updateCompleted']);
     });
 });
