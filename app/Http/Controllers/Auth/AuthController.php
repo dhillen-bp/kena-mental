@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Models\Admin;
@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
@@ -33,7 +34,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if (Auth::user()) {
-                return redirect('/');
+                return redirect('/')->with('success', "Login Successfully!");
             }
 
             // return redirect()->intended('dashboard');
@@ -60,10 +61,7 @@ class AuthController extends Controller
         $request->merge(['password' => Hash::make($request->password)]);
         $user = User::create($request->all());
 
-        Session::flash('status', 'success');
-        Session::flash('message', 'Register success');
-
-        return redirect('/register');
+        return redirect('/register')->with('success', "Register Successfully!");
     }
 
     public function profile()
@@ -71,31 +69,31 @@ class AuthController extends Controller
         return view('client.profile');
     }
 
-    // Auth with Github
-
-    public function redirectToGithubProvider()
+    // Auth with Google
+    public function redirectToGoogleProvider()
     {
-        return Socialite::driver('github')->redirect();
+        return Socialite::driver('google')->redirect();
     }
 
-    public function handleGithubProviderCallback()
+    public function handleGoogleProviderCallback()
     {
 
-        $githubUser = Socialite::driver('github')->user();
+        $googleUser = Socialite::driver('google')->user();
 
         $user = User::updateOrCreate([
-            'github_id' => $githubUser->id,
+            'google_id' => $googleUser->id,
         ], [
-            'name' => $githubUser->nickname,
-            'email' => $githubUser->email,
+            'name' => $googleUser->name,
+            'email' => $googleUser->email,
             'password' => Hash::make('secret'),
-            'github_token' => $githubUser->token,
-            'github_refresh_token' => $githubUser->refreshToken,
+            'google_token' => $googleUser->token,
+            'google_refresh_token' => $googleUser->refreshToken,
+            'avatar' => $googleUser->avatar,
         ]);
 
         Auth::login($user);
 
-        return redirect('/');
+        return redirect('/')->with('success', "Login Successfully!");
 
         // $user->token
     }
@@ -130,7 +128,7 @@ class AuthController extends Controller
         } else {
             Session::flash('status', 'fail');
             Session::flash('message', 'Login Invalid!');
-            return redirect('/admin/login');
+            return redirect('/admin/login')->with('success', "Login Admin Successfully!");
         }
     }
 
@@ -168,6 +166,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('admin/login');
+        return redirect('admin/login')->with('success', "Logout Successfully!");
     }
 }

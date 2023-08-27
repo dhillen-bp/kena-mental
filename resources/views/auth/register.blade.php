@@ -5,6 +5,7 @@
     <div class="container">
         <div class="d-flex justify-content-center mt-5">
             <div class="form-group w-50">
+                <h1 class="mb-4 text-center">Kenamental.com|Register</h1>
                 <form action="register" method="POST">
                     @csrf
                     <div class="mb-3">

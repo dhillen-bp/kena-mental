@@ -3,7 +3,7 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ConsultationController;
@@ -31,6 +31,14 @@ Route::post('login', [AuthController::class, 'authenticating']);
 Route::get('register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('register', [AuthController::class, 'registerProcess']);
 
+// Login with Github
+// Route::get('/auth/github/redirect', [AuthController::class, 'redirectToGithubProvider']);
+// Route::get('/auth/github/callback', [AuthController::class, 'handleGithubProviderCallback']);
+
+// Login with Google
+Route::get('/auth/google/redirect', [AuthController::class, 'redirectToGoogleProvider']);
+Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleProviderCallback']);
+
 // Client
 Route::get('/', [ClientController::class, 'index']);
 Route::get('/psychologists', [PsychologistController::class, 'index'])->middleware('auth');
@@ -53,11 +61,6 @@ Route::get('/mental-test/result/{user_id}/{completed_at}', [QuestionController::
 Route::get('/test', [QuestionController::class, 'test'])->middleware('auth');
 
 Route::get('/testimonials', [ClientController::class, 'testimonial'])->middleware('auth');
-
-
-// Login with Github
-Route::get('/auth/github/redirect', [AuthController::class, 'redirectToGithubProvider']);
-Route::get('/auth/github/callback', [AuthController::class, 'handleGithubProviderCallback']);
 
 // // coba midtrans
 // Route::get('/order', [OrderController::class, 'index']);
