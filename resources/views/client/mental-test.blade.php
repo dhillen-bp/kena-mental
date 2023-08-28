@@ -12,7 +12,7 @@
                         <div class="card-header">
                             <h5 class="text-center">{{ $test->title }}</h5>
                         </div>
-                        <img src="{{ asset('storage/images/test-img/' . $test->thumbnail) }}" class="card-img-top"
+                        <img src="{{ asset('storage/images/test_img/' . $test->thumbnail) }}" class="card-img-top"
                             alt="Test-Mental" style="height: 250px; object-fit: cover; object-position: bottom;">
                         <div class="card-body">
                             <p class="card-text">{{ $test->desc }}</p>

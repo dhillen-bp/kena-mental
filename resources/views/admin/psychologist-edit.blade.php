@@ -23,7 +23,7 @@
                     <img src="{{ asset('storage/images/psychologist_photo/' . $psychologist->photo) }}" alt="Cover Image"
                         class="img-fluid d-block mb-3" width="200px">
                 @else
-                    <img src="{{ asset('images/default.png') }}" alt="Psychologist Image" class="img-fluid d-block mb-3"
+                    <img src="{{ asset('images/default.png') }}" alt="Test Image" class="img-fluid d-block mb-3"
                         width="200px">
                 @endif
                 <input class="form-control" type="file" id="photo" name="photo">

@@ -9,6 +9,7 @@ use App\Models\Consultation;
 use App\Models\Psychologist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\MentalTest;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -18,11 +19,13 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $adminCount = Admin::count();
         $userCount = User::count();
         $psychologistCount = Psychologist::count();
         $consultationCount = Consultation::count();
         $testimonialCount = Testimonial::count();
-        return view('admin.dashboard', compact('userCount', 'psychologistCount', 'consultationCount', 'testimonialCount'));
+        $testCount = MentalTest::count();
+        return view('admin.dashboard', compact('adminCount', 'userCount', 'psychologistCount', 'consultationCount', 'testimonialCount', 'testCount'));
     }
 
     /**

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('test_questions', function (Blueprint $table) {
             $table->id();
             $table->char('test_id', 5);
-            $table->foreign('test_id')->references('id')->on('mental_tests')->onDelete('restrict');
+            $table->foreign('test_id')->references('id')->on('mental_tests')->onDelete('cascade');
             $table->text('content');
             $table->timestamps();
             $table->softDeletes();

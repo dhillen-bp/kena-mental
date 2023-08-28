@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('payment_consultation', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('consultation_id')->references('id')->on('consultations')->onDelete('restrict');
+            $table->foreignUuid('consultation_id')->references('id')->on('consultations')->onUpdate('restrict')->onDelete('restrict');
             $table->bigInteger('total_price');
             $table->enum('status', ['unpaid', 'paid'])->default('unpaid');
             $table->timestamps();

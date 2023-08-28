@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\TestMentalController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\ConsultationController;
 use App\Http\Controllers\Admin\PsychologistController;
+use App\Http\Controllers\Admin\QuestionAnswerController;
 use App\Http\Controllers\Psychologist\DashboardController;
 use App\Http\Controllers\Admin\PsychologistDetailController;
 use App\Http\Controllers\Admin\PaymentConsultationController;
@@ -81,6 +83,21 @@ Route::prefix('admin')->group(function () {
         Route::get('/deleted-users', [UserController::class, 'showDeletedUsers']);
         Route::get('/restore-user/{id}', [UserController::class, 'restore']);
         Route::delete('/delete-permanent-user/{id}', [UserController::class, 'destroyPermanent']);
+
+        Route::get('/mental-test', [TestMentalController::class, 'index']);
+        Route::get('/add-mental-test', [TestMentalController::class, 'create']);
+        Route::post('/add-mental-test', [TestMentalController::class, 'store']);
+        Route::get('/edit-mental-test/{id}', [TestMentalController::class, 'edit']);
+        Route::put('/edit-mental-test/{id}', [TestMentalController::class, 'update']);
+        Route::delete('/delete-mental-test/{id}', [TestMentalController::class, 'destroy']);
+        Route::get('/deleted-mental-test', [TestMentalController::class, 'showDeletedTest']);
+        Route::get('/restore-mental-test/{id}', [TestMentalController::class, 'restore']);
+        Route::delete('/delete-permanent-mental-test/{id}', [TestMentalController::class, 'destroyPermanent']);
+
+        Route::get('/show-mental-test/{id}', [QuestionAnswerController::class, 'show']);
+        Route::post('/add-question', [QuestionAnswerController::class, 'store']);
+        Route::patch('/edit-question/{id}', [QuestionAnswerController::class, 'update']);
+        Route::delete('/delete-question/{id}', [QuestionAnswerController::class, 'destroy']);
     });
 
     Route::middleware('auth.psychologist')->group(function () {

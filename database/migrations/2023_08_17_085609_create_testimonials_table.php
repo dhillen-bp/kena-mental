@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('testimonials', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreignUuid('user_id')->references('id')->on('users')->onUpdate('restrict')->onDelete('restrict');
             $table->char('psychologist_id', 4);
-            $table->foreign('psychologist_id')->references('id')->on('psychologists')->onDelete('restrict');
+            $table->foreign('psychologist_id')->references('id')->on('psychologists')->onUpdate('restrict')->onDelete('restrict');
             $table->text('content');
             $table->timestamps();
         });

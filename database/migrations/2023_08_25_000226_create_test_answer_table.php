@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('test_answers', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->unsignedBigInteger('question_id');
-            $table->foreign('question_id')->references('id')->on('test_questions');
+            $table->foreign('question_id')->references('id')->on('test_questions')->onUpdate('cascade')->onDelete('cascade');
             $table->text('choice');
             $table->integer('score')->nullable();
             $table->timestamps();

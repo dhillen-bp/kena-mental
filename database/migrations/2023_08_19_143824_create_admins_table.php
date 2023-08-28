@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', ['admin', 'psychologist']);
             $table->char('psychologist_id', 4)->nullable();
-            $table->foreign('psychologist_id')->references('id')->on('psychologists');
+            $table->foreign('psychologist_id')->references('id')->on('psychologists')->onUpdate('restrict')->onDelete('restrict');
             $table->timestamps();
         });
     }

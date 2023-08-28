@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('psychologist_details', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->char('psychologist_id', 4);
-            $table->foreign('psychologist_id')->references('id')->on('psychologists')->onDelete('restrict');
+            $table->foreign('psychologist_id')->references('id')->on('psychologists')->onUpdate('restrict')->onDelete('restrict');
             $table->string('university');
             $table->year('year');
             $table->string('degree');
