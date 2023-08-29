@@ -16,9 +16,17 @@ class PsychologistController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $psychologists = Psychologist::with('psychologistDetail')->paginate(10);
+        $keyword = $request->keyword;
+
+        $psychologists = Psychologist::with('psychologistDetail')
+            ->where('name', 'LIKE', '%' . $keyword . '%')
+            ->orWhereHas('psychologistDetail', function ($query) use ($keyword) {
+                $query->where('topics', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('university', 'LIKE', '%' . $keyword . '%');
+            })
+            ->paginate(10);
 
         return view('admin.psychologists', compact('psychologists'));
     }

@@ -3,11 +3,23 @@
 
 @section('admin_content')
     <div class="container my-5">
-        <h1 class="mb-4">Data Admins</h1>
-        <div class="d-flex justify-content-between mb-4">
+        <h1 class="mb-3">Data Admins</h1>
+        <div class="d-flex justify-content-between mb-3">
             <a href="/admin/add-admin" class="btn btn-primary">Add Admin</a>
             <a href="/admin/deleted-admins" class="btn btn-info">Show Deleted Admins</a>
         </div>
+        <div class="row d-flex justify-content-between mt-4">
+            <div class="col-12 col-sm-5 mb-3">
+                <form action="" method="get" class="">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="" name="keyword"
+                            placeholder="Search Keyword">
+                        <button class="input-group-text btn btn-primary"><i class="bi bi-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <table class="table-striped table">
             <thead>
                 <tr>

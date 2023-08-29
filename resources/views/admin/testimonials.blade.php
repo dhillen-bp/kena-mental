@@ -8,6 +8,17 @@
             <a href="/admin/add-testimonial" class="btn btn-primary">Add Testimonial Data</a>
             <a href="/admin/deleted-testimonials" class="btn btn-info">Show Deleted Testimonial</a>
         </div>
+        <div class="row d-flex justify-content-between mt-4">
+            <div class="col-12 col-sm-5 mb-3">
+                <form action="" method="get" class="">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="" name="keyword"
+                            placeholder="Search Keyword">
+                        <button class="input-group-text btn btn-primary"><i class="bi bi-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <table class="table-striped table">
             <thead>
                 <tr>

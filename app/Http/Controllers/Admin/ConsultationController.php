@@ -16,9 +16,22 @@ class ConsultationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $consultations = Consultation::with(['paymentConsultation', 'users', 'psychologists'])->paginate(10);
+        $keyword = $request->keyword;
+
+        $consultations = Consultation::with(['paymentConsultation', 'users', 'psychologists'])
+            ->where('booking_date', 'LIKE', '%' . $keyword . '%')
+            ->orWhereHas('users', function ($query) use ($keyword) {
+                $query->where('name', 'LIKE', '%' . $keyword . '%');
+            })
+            ->orWhereHas('psychologists', function ($query) use ($keyword) {
+                $query->where('name', 'LIKE', '%' . $keyword . '%');
+            })
+            ->orWhereHas('paymentConsultation', function ($query) use ($keyword) {
+                $query->where('status', 'LIKE', '%' . $keyword . '%');
+            })
+            ->paginate(10);
         return view('admin.consultations', compact('consultations'));
     }
 

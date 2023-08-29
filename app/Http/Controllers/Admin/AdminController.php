@@ -63,9 +63,15 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Admin $admin)
+    public function show(Request $request)
     {
-        $admins = Admin::paginate(10);
+        $keyword = $request->keyword;
+
+        $admins = Admin::where('name', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('email', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('role', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('psychologist_id', 'LIKE', '%' . $keyword . '%')
+            ->paginate(10);
         return view('admin.admin-show', compact('admins'));
     }
 

@@ -12,9 +12,13 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(10);
+        $keyword = $request->keyword;
+
+        $users = User::where('name', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('email', 'LIKE', '%' . $keyword . '%')
+            ->paginate(10);
         return view('admin.users', compact('users'));
     }
 

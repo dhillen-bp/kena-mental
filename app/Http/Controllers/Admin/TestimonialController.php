@@ -13,9 +13,19 @@ class TestimonialController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $testimonials = Testimonial::with(['user:id,name', 'psychologist:id,name'])->paginate(10);
+        $keyword = $request->keyword;
+
+        $testimonials = Testimonial::with(['user:id,name', 'psychologist:id,name'])
+            ->where('content', 'LIKE', '%' . $keyword . '%')
+            ->orWhereHas('user', function ($query) use ($keyword) {
+                $query->where('name', 'LIKE', '%' . $keyword . '%');
+            })
+            ->orWhereHas('psychologist', function ($query) use ($keyword) {
+                $query->where('name', 'LIKE', '%' . $keyword . '%');
+            })
+            ->paginate(10);
         return view('admin.testimonials', compact('testimonials'));
     }
 
