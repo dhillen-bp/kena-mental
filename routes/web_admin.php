@@ -98,6 +98,9 @@ Route::prefix('admin')->group(function () {
         Route::post('/add-question', [QuestionAnswerController::class, 'store']);
         Route::patch('/edit-question/{id}', [QuestionAnswerController::class, 'update']);
         Route::delete('/delete-question/{id}', [QuestionAnswerController::class, 'destroy']);
+        Route::post('/add-answer', [QuestionAnswerController::class, 'storeAnswer']);
+        Route::patch('/edit-answer/{id}', [QuestionAnswerController::class, 'updateAnswer']);
+        Route::delete('/delete-answer/{id}', [QuestionAnswerController::class, 'destroyAnswer']);
     });
 
     Route::middleware('auth.psychologist')->group(function () {

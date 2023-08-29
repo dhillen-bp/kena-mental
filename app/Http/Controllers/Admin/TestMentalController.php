@@ -28,7 +28,7 @@ class TestMentalController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'id' => 'required|unique:mental-test',
+            'id' => 'required|unique:mental_tests',
             'title' => 'required|max:255',
             'thumbnail' => 'image|mimes:jpeg,png,jpg|max:2048',
             'desc' => 'max:255',

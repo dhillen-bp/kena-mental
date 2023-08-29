@@ -18,7 +18,6 @@ class MentalTest extends Model
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     protected $guarded = [];
-    // protected $keyType = 'string';
     /**
      * Get all of the comments for the MentalTest
      *

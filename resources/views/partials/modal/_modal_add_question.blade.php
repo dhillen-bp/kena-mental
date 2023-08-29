@@ -9,14 +9,9 @@
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="id" class="form-label">Question ID</label>
-                        <input type="text" class="form-control" name="id" id="id"
-                            value="{{ $question->id }}" readonly>
-                    </div>
-                    <div class="mb-3">
                         <label for="test_id" class="form-label">Test ID</label>
                         <input type="text" class="form-control" name="test_id" id="test_id"
-                            value="{{ $question->test_id }}" readonly>
+                            value="{{ $test->id }}" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="content" class="form-label">Question Content</label>
