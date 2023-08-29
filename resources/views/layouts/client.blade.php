@@ -78,5 +78,4 @@
             <p class="text-secondary mb-3 mt-2 text-center">© 2023 kenamental.com</p>
         </div>
     </footer>
-    @include('partials._toastr')
 @endsection

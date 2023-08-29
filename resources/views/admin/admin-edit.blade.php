@@ -50,5 +50,5 @@
     </div>
 
     @include('partials._scriptHideFormAdmin')
-    @include('partials._toastr')
+
 @endsection

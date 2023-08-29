@@ -51,7 +51,7 @@ class AnswerTableSeeder extends Seeder
             ['question_id' => '10', 'choice' => 'Jarang', 'score' => 3],
             ['question_id' => '10', 'choice' => 'Tidak Pernah', 'score' => 3],
             ['question_id' => '11', 'choice' => 'Mengatakan kata-kata manis dan pujian', 'score' => 1],
-            ['question_id' => '11', 'choice' => 'Mengatakan kata-kata manis dan pujian', 'score' => 2],
+            ['question_id' => '11', 'choice' => 'Menghabiskan waktu bersama saya', 'score' => 2],
             ['question_id' => '11', 'choice' => 'Memberikan hadiah atau kejutan tak terduga', 'score' => 3],
             ['question_id' => '11', 'choice' => 'Membantu saya dengan tindakan nyata', 'score' => 4],
             ['question_id' => '11', 'choice' => 'Menyentuh atau berdekatan secara fisik', 'score' => 5],

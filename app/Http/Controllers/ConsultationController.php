@@ -73,11 +73,11 @@ class ConsultationController extends Controller
             ->first();
 
         if ($existingConsultation) {
-            return back()->with('error', 'A consultation with the same psychologist and booking date already exists.');
+            return redirect("/form-consultation/" . $validated['psychologist_id'])->with('error', 'A consultation with the same psychologist and booking date already exists.');
         }
 
         $consultation = Consultation::create($request->all());
 
-        return redirect("/payment-consultation/$consultation->id")->with('success', "Profile  Updated Successfully!")->withErrors($validated);
+        return redirect("/payment-consultation/$consultation->id")->with('success', "Consultation  Created Successfully!")->withErrors($validated);
     }
 }

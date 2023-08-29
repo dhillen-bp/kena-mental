@@ -45,5 +45,5 @@
     <div class="my-5">
         {{ $consultations->links() }}
     </div>
-    @include('partials._toastr')
+
 @endsection

@@ -56,22 +56,28 @@ class ResultTestHelper
         // Mencari nilai skor dengan frekuensi tertinggi (modus)
         $mostFrequentScore = array_search(max($scoreFrequencies), $scoreFrequencies);
 
+        $desc_1 = 'Kamu menghargai kata-kata yang penuh perhatian dan positif. Kamu merasa dicintai dan dihargai melalui ucapan pujian, kata-kata dorongan, dan apresiasi verbal. Komunikasi terbuka dan kata-kata yang menyenangkan membuat Kamu merasa lebih dekat dengan orang yang Kamu cintai.';
+        $desc_2 = 'Kamu menghargai waktu yang dihabiskan bersama dengan seseorang yang Kamu cintai. Interaksi mendalam, perhatian penuh, dan waktu bersama menjadi penting bagi Kamu. Kamu merasa dekat dan terhubung saat menghabiskan waktu berkualitas bersama, tanpa gangguan.';
+        $desc_3 = 'Kamu merasa dicintai melalui hadiah yang memiliki makna khusus. Hadiah-hadiah tersebut adalah simbol perhatian dan tanda bahwa seseorang memikirkan Kamu. Kamu menghargai setiap hadiah, tidak hanya dari segi material, tetapi juga dari makna emosional yang terkait.';
+        $desc_4 = 'Kamu merasa dicintai melalui tindakan nyata yang menunjukkan perhatian dan dukungan. Bantuan dalam tindakan sehari-hari, tugas-tugas rumah tangga, atau tindakan baik lainnya adalah cara Kamu merasa diperhatikan. Tindakan tersebut membantu Kamu merasa lebih dekat dengan orang yang Kamu cintai.';
+        $desc_5 = 'Kamu merasa dekat dan dicintai melalui sentuhan fisik. Sentuhan, pelukan, dan kontak tubuh lainnya adalah cara Kamu merasakan ikatan emosional. Kontak fisik menciptakan rasa koneksi yang kuat dan kasih sayang yang mendalam.';
+
         // Menentukan jenis love language berdasarkan nilai skor yang paling sering muncul
         if ($mostFrequentScore === 1) {
             $level = 'Words of Affirmation';
-            $desc = 'Kamu menghargai kata-kata yang penuh perhatian dan positif...';
+            $desc = $desc_1;
         } elseif ($mostFrequentScore === 2) {
             $level = 'Quality Time';
-            $desc = 'Kamu menghargai waktu yang dihabiskan bersama dengan seseorang...';
+            $desc = $desc_2;
         } elseif ($mostFrequentScore === 3) {
             $level = 'Receiving Gifts';
-            $desc = 'Kamu merasa dicintai melalui hadiah yang memiliki makna khusus...';
+            $desc = $desc_3;
         } elseif ($mostFrequentScore === 4) {
             $level = 'Acts of Service';
-            $desc = 'Kamu merasa dicintai melalui tindakan nyata yang menunjukkan perhatian dan dukungan...';
+            $desc = $desc_4;
         } elseif ($mostFrequentScore === 5) {
             $level = 'Physical Touch';
-            $desc = 'Kamu merasa dekat dan dicintai melalui sentuhan fisik...';
+            $desc = $desc_5;
         } else {
             // Menghitung rata-rata skor
             $averageScore = $totalScore / count($answerIds);
@@ -79,19 +85,19 @@ class ResultTestHelper
             // Menentukan tingkat stres berdasarkan rata-rata skor
             if ($averageScore <= 1) {
                 $level = 'Words of Affirmation';
-                $desc = 'Kamu menghargai kata-kata yang penuh perhatian dan positif. Kamu merasa dicintai dan dihargai melalui ucapan pujian, kata-kata dorongan, dan apresiasi verbal. Komunikasi terbuka dan kata-kata yang menyenangkan membuat Kamu merasa lebih dekat dengan orang yang Kamu cintai.';
+                $desc = $desc_1;
             } elseif ($averageScore <= 2) {
                 $level = 'Quality Time';
-                $desc = 'Kamu menghargai waktu yang dihabiskan bersama dengan seseorang yang Kamu cintai. Interaksi mendalam, perhatian penuh, dan waktu bersama menjadi penting bagi Kamu. Kamu merasa dekat dan terhubung saat menghabiskan waktu berkualitas bersama, tanpa gangguan.';
+                $desc = $desc_2;
             } elseif ($averageScore <= 3) {
                 $level = 'Receiving Gifts';
-                $desc = ' Kamu merasa dicintai melalui hadiah yang memiliki makna khusus. Hadiah-hadiah tersebut adalah simbol perhatian dan tanda bahwa seseorang memikirkan Kamu. Kamu menghargai setiap hadiah, tidak hanya dari segi material, tetapi juga dari makna emosional yang terkait.';
+                $desc = $desc_3;
             } elseif ($averageScore <= 4) {
                 $level = 'Acts of Service';
-                $desc = 'Kamu merasa dicintai melalui tindakan nyata yang menunjukkan perhatian dan dukungan. Bantuan dalam tindakan sehari-hari, tugas-tugas rumah tangga, atau tindakan baik lainnya adalah cara Kamu merasa diperhatikan. Tindakan tersebut membantu Kamu merasa lebih dekat dengan orang yang Kamu cintai.';
+                $desc = $desc_4;
             } elseif ($averageScore <= 5) {
                 $level = 'Physical Touch';
-                $desc = 'Kamu merasa dekat dan dicintai melalui sentuhan fisik. Sentuhan, pelukan, dan kontak tubuh lainnya adalah cara Kamu merasakan ikatan emosional. Kontak fisik menciptakan rasa koneksi yang kuat dan kasih sayang yang mendalam.';
+                $desc = $desc_5;
             }
         }
 

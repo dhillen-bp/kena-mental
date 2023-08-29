@@ -1,5 +1,11 @@
 <script>
-    @if (Session::has('success'))
+    @if (Session::has('error'))
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true
+        }
+        toastr.error("{{ session('error') }}");
+    @elseif (Session::has('success'))
         toastr.options = {
             "closeButton": true,
             "progressBar": true
@@ -15,11 +21,4 @@
     //         toastr.error("{{ $error }}");
     //     @endforeach
     // @endif
-    @if (Session::has('error'))
-        toastr.options = {
-            "closeButton": true,
-            "progressBar": true
-        }
-        toastr.error("{{ session('error') }}");
-    @endif
 </script>
